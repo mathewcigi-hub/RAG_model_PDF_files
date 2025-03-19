@@ -9,7 +9,7 @@ from tkinter import filedialog, scrolledtext
 from PIL import Image, ImageTk
 import time
 
-# Configure your Gemini API key (Replace with your actual API key)
+# Configure your Gemini API key 
 GOOGLE_API_KEY = "UR API key"  # Replace with your actual API key
 genai.configure(api_key=GOOGLE_API_KEY)
 
