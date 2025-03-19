@@ -1,3 +1,4 @@
+
 import os
 import google.generativeai as genai
 from PyPDF2 import PdfReader
@@ -5,12 +6,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import tkinter as tk
 from tkinter import filedialog, scrolledtext
-from PIL import Image, ImageTk  # For background and buttons
-
-
+from PIL import Image, ImageTk
+import time
 
 # Configure your Gemini API key (Replace with your actual API key)
-GOOGLE_API_KEY = "API_Key"   # provide ur gemini API-key
+GOOGLE_API_KEY = "AIzaSyDqgSmO91f0zWoNY6MuapRvNwdmWLb78vE"  # Replace with your actual API key
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Use a valid model name
@@ -58,7 +58,7 @@ def find_relevant_context(question, documents):
     return documents[most_relevant_index]
 
 def generate_response(question, context):
-    """Generates a response using the Gemini API."""
+    """Generates a response using the Gemini API with rate limiting."""
     prompt = f"""
     Answer the following question based on the provided context.
 
@@ -72,6 +72,12 @@ def generate_response(question, context):
     """
     try:
         response = model.generate_content(prompt)
+        countdown_label.config(text="Waiting...")
+        for i in range(10, 0, -1):  # 10-second delay (adjust as needed)
+            countdown_label.config(text=f"Waiting... {i} seconds")
+            root.update()  # Update the UI to show the countdown
+            time.sleep(1)
+        countdown_label.config(text="")  # Clear the countdown
         return response.text
     except Exception as e:
         print(f"Error generating response: {e}")
@@ -111,42 +117,39 @@ def ask_question():
 # UI setup
 root = tk.Tk()
 root.title("RAG Model")
-root.geometry("900x600")  # Window size
+root.geometry("900x600")
 
 # Load background image
-bg_image = Image.open("background.jpg")  # Change to your image file
+bg_image = Image.open("background.jpg")  # Replace with your image
 bg_image = bg_image.resize((900, 600), Image.LANCZOS)
 bg_photo = ImageTk.PhotoImage(bg_image)
 
-# Create a Canvas to place the background
 canvas = tk.Canvas(root, width=900, height=600)
 canvas.pack(fill="both", expand=True)
 canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
-# Title Label (Transparent effect)
 canvas.create_text(450, 40, text="RAG Model", font=("Arial", 24, "bold"), fill="white")
 
-# Folder Selection Section
 canvas.create_text(150, 90, text="PDF Folder:", font=("Arial", 12, "bold"), fill="white")
 folder_path_entry = tk.Entry(root, width=50, font=("Arial", 10))
 folder_path_entry.place(x=230, y=80)
 
 browse_button = tk.Button(root, text="Browse", font=("Arial", 10, "bold"), fg="black",
-                          bg=root.cget("bg"), relief="flat", borderwidth=0, command=browse_folder)
+                            bg=root.cget("bg"), relief="flat", borderwidth=0, command=browse_folder)
 browse_button.place(x=600, y=75)
 
-# Question Input Section
 canvas.create_text(150, 140, text="Question:", font=("Arial", 12, "bold"), fill="white")
 question_entry = tk.Entry(root, width=50, font=("Arial", 10))
 question_entry.place(x=230, y=130)
 
 ask_button = tk.Button(root, text="Ask", font=("Arial", 10, "bold"), fg="black",
-                       bg=root.cget("bg"), relief="flat", borderwidth=0, command=ask_question)
+                        bg=root.cget("bg"), relief="flat", borderwidth=0, command=ask_question)
 ask_button.place(x=600, y=125)
 
-# Result Box (Make it transparent by using Canvas Text)
 result_text = scrolledtext.ScrolledText(root, width=100, height=25, font=("Arial", 10))
 result_text.place(x=50, y=180)
 
-# Run UI
+countdown_label = tk.Label(root, text="", font=("Arial", 12), fg="white", bg="black")
+countdown_label.place(x=700, y=125)
+
 root.mainloop()
