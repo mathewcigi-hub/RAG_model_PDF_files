@@ -13,4 +13,8 @@ If needs to changes the github repo to another account ->
  2. Run the "RAG_model.py" code 
  3. A UI will open which shows the "Folder_path" in which the location of the folder which contains the pdf files is given
  4. Ask a question in the "Ask a question" window.
- 5. The answer will be displayed on the below text box            
+ 5. The answer will be displayed on the below text box
+
+
+## NOTE
+The code is given a 10 sec delay between the question and answer, this is because the gemini API keys have a limit in the request to be made (limited number of request per time). To avoid that issue, the delay is given internally.
