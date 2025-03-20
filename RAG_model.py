@@ -10,7 +10,9 @@ from PIL import Image, ImageTk
 import time
 
 # Configure your Gemini API key (Replace with your actual API key)
-GOOGLE_API_KEY = "AIzaSyDqgSmO91f0zWoNY6MuapRvNwdmWLb78vE"  # Replace with your actual API key
+
+#AIzaSyCcMKxaTOOLX2jh6CNejEujTX6_FtF2ECc
+GOOGLE_API_KEY = "UR API Key"  # Replace with your actual API key
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Use a valid model name
@@ -116,7 +118,7 @@ def ask_question():
 
 # UI setup
 root = tk.Tk()
-root.title("RAG Model")
+root.title("RAG Model - Ask me!!")
 root.geometry("900x600")
 
 # Load background image
@@ -146,7 +148,7 @@ ask_button = tk.Button(root, text="Ask", font=("Arial", 10, "bold"), fg="black",
                         bg=root.cget("bg"), relief="flat", borderwidth=0, command=ask_question)
 ask_button.place(x=600, y=125)
 
-result_text = scrolledtext.ScrolledText(root, width=100, height=25, font=("Arial", 10))
+result_text = scrolledtext.ScrolledText(root, width=60, height=25, font=("Arial", 10))
 result_text.place(x=50, y=180)
 
 countdown_label = tk.Label(root, text="", font=("Arial", 12), fg="white", bg="black")
