@@ -11,7 +11,6 @@ import time
 
 # Configure your Gemini API key (Replace with your actual API key)
 
-#AIzaSyCcMKxaTOOLX2jh6CNejEujTX6_FtF2ECc
 GOOGLE_API_KEY = "UR API Key"  # Replace with your actual API key
 genai.configure(api_key=GOOGLE_API_KEY)
 
