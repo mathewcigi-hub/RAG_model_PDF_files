@@ -10,7 +10,7 @@ from PIL import Image, ImageTk
 import time
 
 # Configure your Gemini API key (Replace with your actual API key)
-GOOGLE_API_KEY = "API key"  # Replace with your actual API key
+GOOGLE_API_KEY = "UR API Key" # Replace with your actual API key
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Use a valid model name
