@@ -17,4 +17,6 @@ If needs to changes the github repo to another account ->
 
 
 ## NOTE
+The API key was used in making the code was from free Gemini API. There by it can have limitations size and time.
+
 The code is given a 10 sec delay between the question and answer, this is because the gemini API keys have a limit in the request to be made (limited number of request per time). To avoid that issue, the delay is given internally.
